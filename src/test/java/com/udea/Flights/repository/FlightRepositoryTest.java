@@ -15,28 +15,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class FlightRepositoryTest {
+@ExtendWith(MockitoExtension.class)
+class FlightRepositoryTest {
 
-    @MockBean
+    @Mock
     private IFlightRepository iFlightRepository;
 
-    @Mock
     private Airline airline;
 
-    @Mock
     private Airport airportOrigin;
 
-    @Mock
     private Airport airportDestination;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
 
         airline = new Airline(null, "Test Airline", "Test Country");
@@ -45,7 +39,7 @@ public class FlightRepositoryTest {
     }
 
     @Test
-    public void testFindFlightsByDatesAndCities() {
+    void testFindFlightsByDatesAndCities() {
         LocalDate departureDate = LocalDate.of(2024, 5, 15);
         LocalTime departureTime = LocalTime.of(10, 30);
         LocalDate arrivalDate = LocalDate.of(2024, 5, 16);

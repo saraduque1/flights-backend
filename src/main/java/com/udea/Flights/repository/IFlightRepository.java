@@ -22,5 +22,4 @@ public interface IFlightRepository extends JpaRepository<Flight, Long> {
                                                             @Param("arrivalDate") LocalDate arrivalDate,
                                                             @Param("originCity") String originCity,
                                                             @Param("destinationCity") String destinationCity);
-
 }
