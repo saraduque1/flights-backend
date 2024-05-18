@@ -1,19 +1,18 @@
 package com.udea.Flights.controller;
 
 import com.udea.Flights.domain.dto.FareDTO;
-import com.udea.Flights.domain.dto.FlightDTO;
+import com.udea.Flights.domain.dto.FlightsSearchByDatesAndCitiesDTO;
 import com.udea.Flights.service.IFareService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fares")
+@RequestMapping("v3/api/fares")
 public class FareController {
 
     private final IFareService fareService;
@@ -23,11 +22,12 @@ public class FareController {
         this.fareService = fareService;
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<FareDTO>> getFaresByFlightClassName(
-            @RequestParam String nameTypeClass) {
+    @PostMapping("/search")
+    public ResponseEntity<List<FareDTO>> searchFlightsByDatesAndCities(@Valid @RequestBody FlightsSearchByDatesAndCitiesDTO searchRequest) {
+        LocalDate departureDate = searchRequest.getDepartureDate();
+        LocalDate arrivalDate = searchRequest.getArrivalDate();
 
-        List<FareDTO> fares = fareService.getFaresByFlightClassName(nameTypeClass);
+        List<FareDTO> fares = fareService.searchFlightsByDatesAndCities(departureDate, arrivalDate, searchRequest.getOriginCity(), searchRequest.getDestinationCity());
         return ResponseEntity.ok(fares);
     }
 }

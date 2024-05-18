@@ -1,16 +1,18 @@
 package com.udea.Flights.controller;
 
 import com.udea.Flights.domain.dto.FlightDTO;
+import com.udea.Flights.domain.dto.FlightsSearchByDatesAndCitiesDTO;
 import com.udea.Flights.service.IFlightService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/flights")
+@RequestMapping("/api/v3/flights")
 public class FlightController {
 
     private final IFlightService flightService;
@@ -20,21 +22,12 @@ public class FlightController {
         this.flightService = flightService;
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<FlightDTO>> searchByDepartureDateAndArrivalDate(
-            @RequestParam("departureDate") String departureDateStr,
-            @RequestParam("arrivalDate") String arrivalDateStr) {
+    @PostMapping("/search")
+    public ResponseEntity<List<FlightDTO>> searchFlightsByDatesAndCities(@Valid @RequestBody FlightsSearchByDatesAndCitiesDTO searchRequest) {
+        LocalDate departureDate = searchRequest.getDepartureDate();
+        LocalDate arrivalDate = searchRequest.getArrivalDate();
 
-        LocalDateTime departureDate = LocalDateTime.parse(departureDateStr);
-        LocalDateTime arrivalDate = LocalDateTime.parse(arrivalDateStr);
-
-        List<FlightDTO> flights = flightService.searchByDepartureDateAndArrivalDate(departureDate, arrivalDate);
-        return ResponseEntity.ok(flights);
-    }
-
-    @GetMapping("/search/byFlightNumber")
-    public ResponseEntity<List<FlightDTO>> searchByFlightNumber(@RequestParam("flightNumber") String flightNumber) {
-        List<FlightDTO> flights = flightService.searchByFlightNumber(flightNumber);
+        List<FlightDTO> flights = flightService.searchFlightsByDatesAndCities(departureDate, arrivalDate, searchRequest.getOriginCity(), searchRequest.getDestinationCity());
         return ResponseEntity.ok(flights);
     }
 }

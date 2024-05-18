@@ -1,11 +1,9 @@
 package com.udea.Flights.domain.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+import java.time.LocalTime;
 
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -13,14 +11,14 @@ import java.time.LocalDateTime;
 @Builder
 @Schema(description = "DTO que representa un vuelo")
 public class FlightDTO {
-    @Schema(description = "Fecha de salida", example = "2021-12-31T23:59:59")
-    private LocalDateTime departureDate;
-    @Schema(description = "Fecha de llegada", example = "2021-12-31T23:59:59")
-    private LocalDateTime arrivalDate;
-    @Schema(description = "Aerolinea", example = "Avianca")
+    @Schema(description = "Hora de salida del vuelo", example = "23:59:59")
+    private LocalTime departureTime;
+    @Schema(description = "Hora de llegada del vuelo", example = "23:59:59")
+    private LocalTime arrivalTime;
+    @Schema(description = "Aerolínea encargada del vuelo")
     private AirlineDTO airline;
-    @Schema(description = "Aeropuerto de origen", example = "BOG")
+    @Schema(description = "Aeropuerto de origen")
     private AirportDTO airportOrigin;
-    @Schema(description = "Aeropuerto de destino", example = "MDE")
+    @Schema(description = "Aeropuerto de destino")
     private AirportDTO airportDestination;
 }

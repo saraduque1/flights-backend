@@ -6,7 +6,9 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -25,10 +27,16 @@ public class Flight {
     private String flightNumber;
 
     @Column(name = "departure_date", nullable = false)
-    private LocalDateTime  departureDate;
+    private LocalDate departureDate;
+
+    @Column(name = "departure_time", nullable = false)
+    private LocalTime departureTime;
 
     @Column(name = "arrival_date", nullable = false)
-    private LocalDateTime arrivalDate;
+    private LocalDate arrivalDate;
+
+    @Column(name = "arrival_time", nullable = false)
+    private LocalTime arrivalTime;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_airline", nullable = false)
@@ -41,5 +49,4 @@ public class Flight {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_airport_destination", nullable = false)
     private Airport idAirportDestination;
-
 }

@@ -2,11 +2,9 @@ package com.udea.Flights.service;
 
 import com.udea.Flights.domain.dto.FlightDTO;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IFlightService {
-    List<FlightDTO> searchByDepartureDateAndArrivalDate(LocalDateTime departureDate, LocalDateTime arrivalDate);
-
-    List<FlightDTO> searchByFlightNumber(String flightNumber);
+    List<FlightDTO> searchFlightsByDatesAndCities(LocalDate departureDate, LocalDate arrivalDate, String originCity, String destinationCity);
 }
