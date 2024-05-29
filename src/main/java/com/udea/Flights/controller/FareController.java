@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("v3/api/fares")
+@RequestMapping("/v3/api/fares")
 @Tag(name = "Gestión de tarifas de vuelos", description = "API para gestionar tarifas")
 public class FareController {
 

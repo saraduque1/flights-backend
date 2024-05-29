@@ -1,5 +1,4 @@
 package com.udea.Flights.controller;
-
 import com.udea.Flights.domain.dto.FlightDTO;
 import com.udea.Flights.domain.dto.FlightsSearchByDatesAndCitiesDTO;
 import com.udea.Flights.service.IFlightService;
@@ -13,7 +12,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
